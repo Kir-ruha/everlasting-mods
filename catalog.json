@@ -1,0 +1,18 @@
+{
+  "updatedAt": "2026-01-05T00:00:00Z",
+  "mods": [
+    {
+      "id": "example_mod",
+      "title": "Пример мода",
+      "author": "Kir-ruha",
+      "version": "1.0.0",
+      "gameVersion": "1.4",
+      "downloadUrl": "https://raw.githubusercontent.com/Kir-ruha/everlasting-mods/main/mods/example_mod.zip",
+      "sha256": "",
+      "sizeBytes": 0,
+      "previewUrl": "https://raw.githubusercontent.com/Kir-ruha/everlasting-mods/main/previews/example_mod.jpg",
+      "heroines": ["Славя"],
+      "tags": ["demo"]
+    }
+  ]
+}

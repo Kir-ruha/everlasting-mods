@@ -2,17 +2,30 @@
   "updatedAt": "2026-01-05T00:00:00Z",
   "mods": [
     {
-      "id": "example_mod",
-      "title": "Пример мода",
+      "id": "Red_fiery_horse",
+      "title": "Красная огненная лошадь",
       "author": "Kir-ruha",
       "version": "1.0.0",
       "gameVersion": "1.4",
       "downloadUrl": "https://disk.yandex.ru/d/Uxzm5B7vtR7yoA",
       "sha256": "",
-      "sizeBytes": 0,
+      "sizeBytes": 239,
       "previewUrl": "https://raw.githubusercontent.com/Kir-ruha/everlasting-mods/main/previews/example_mod.jpg",
-      "heroines": ["Славя"],
-      "tags": ["demo"]
+      "heroines": ["Алиса, Мику"],
+      "tags": ["Романтика, драма, приключения"]
+    }
+     {
+      "id": "bkrr"
+      "title": "Булки, кефир и рок-н-ролл",
+      "author": "Kir-ruha",
+      "version": "1.0.0",
+      "gameVersion": "1.4",
+      "downloadUrl": "https://disk.yandex.ru/d/Zgh6VjIo_hlU9g",
+      "sha256": "",
+      "sizeBytes": 555,
+      "previewUrl": "https://raw.githubusercontent.com/Kir-ruha/everlasting-mods/main/previews/example_mod.jpg",
+      "heroines": ["Мику"],
+      "tags": ["Романтика"]
     }
   ]
 }

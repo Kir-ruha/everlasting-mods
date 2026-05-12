@@ -28,10 +28,10 @@
   },
   "mods": [
     {
-      "id": "scenario_alt_048",
+      "id": "scenario_alt_1.1",
       "title": "7 Дней Лета: Lost Alpha",
       "author": "-",
-      "downloadUrl": "https://disk.yandex.ru/d/fqL2eHJyOE8oaQ?path=%2Fmods%2Fscenario_alt_048_mobile.zip",
+      "downloadUrl": "https://disk.yandex.ru/d/fqL2eHJyOE8oaQ?path=%2Fmods%2Fscenario_alt_1.1_android.zip",
       "sizeBytes": 573237196,
       "steamWorkshopId": "441054187",
       "steamPopularityRank": 1,
@@ -9230,27 +9230,6 @@
       ],
       "tags": [
         "In development"
-      ]
-    },
-    {
-      "id": "scenario_alt_1.0",
-      "title": "7 ДНЕЙ ЛЕТА: LOST ALPHA РЕЛИЗ!",
-      "author": "-",
-      "downloadUrl": "https://disk.yandex.ru/d/fqL2eHJyOE8oaQ?path=%2Fmods%2Fscenario_alt_1.0_mobile.zip",
-      "sizeBytes": 735040674,
-      "heroines": [
-        "Alisa",
-        "Lena",
-        "Slavya",
-        "Ulyana",
-        "Yulya",
-        "Miku"
-      ],
-      "genres": [
-        "Romance",
-        "Drama",
-        "Horror",
-        "Adventure"
       ]
     },
     {

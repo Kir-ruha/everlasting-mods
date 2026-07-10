@@ -20354,6 +20354,14 @@
         "Zhenya"
       ],
       "genres": []
-    }
+    },
+    {
+    "id": "pacanskoe_leto",
+    "title": "Пацанское лето",
+    "author": "-",
+    "downloadUrl": "https://disk.yandex.ru/d/5zYPJURw-0UzPA?path=%2Fmods%2Fpl_mobile%285.4.23%29.zip",
+     "sizeBytes": 291504128,
+    "genres": [Trash]
+}
   ]
 }

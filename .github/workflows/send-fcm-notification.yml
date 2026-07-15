@@ -1,0 +1,99 @@
+name: Send FCM notification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - notifications.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send-notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out catalog
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check whether the latest notification is new
+        id: notification
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          current_id="$(jq -r '.notifications[-1].id // empty' notifications.json)"
+          if [[ -z "$current_id" ]]; then
+            echo "notifications.json has no notification id" >&2
+            exit 1
+          fi
+
+          should_send=true
+          if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+            before_sha="${{ github.event.before }}"
+            if [[ -n "$before_sha" ]] &&
+               [[ "$before_sha" != "0000000000000000000000000000000000000000" ]] &&
+               git cat-file -e "$before_sha:notifications.json" 2>/dev/null; then
+              previous_id="$(git show "$before_sha:notifications.json" | jq -r '.notifications[-1].id // empty')"
+              if [[ "$current_id" == "$previous_id" ]]; then
+                should_send=false
+              fi
+            fi
+          fi
+
+          echo "should_send=$should_send" >> "$GITHUB_OUTPUT"
+          echo "Latest notification: $current_id; send: $should_send"
+
+      - name: Authenticate to Google Cloud
+        if: steps.notification.outputs.should_send == 'true'
+        id: auth
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          token_format: access_token
+
+      - name: Send latest notification to the app topic
+        if: steps.notification.outputs.should_send == 'true'
+        shell: bash
+        env:
+          ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
+          FIREBASE_PROJECT_ID: everlastingmods-0ea76828
+          FCM_TOPIC: app_notifications
+        run: |
+          set -euo pipefail
+
+          payload="$(jq -c --arg topic "$FCM_TOPIC" '
+            .notifications[-1] as $notification |
+            {
+              message: {
+                topic: $topic,
+                notification: {
+                  title: ($notification.title // "Everlasting Mods" | tostring),
+                  body: ($notification.message // $notification.body // "" | tostring)
+                },
+                data: {
+                  id: ($notification.id // "" | tostring),
+                  type: ($notification.type // "info" | tostring),
+                  date: ($notification.date // "" | tostring),
+                  version: ($notification.version // "" | tostring),
+                  url: ($notification.url // $notification.link // "" | tostring)
+                },
+                android: {
+                  priority: "high",
+                  notification: {
+                    channel_id: "app_updates"
+                  }
+                }
+              }
+            }
+          ' notifications.json)"
+
+          curl --fail-with-body --silent --show-error \
+            --request POST \
+            --header "Authorization: Bearer $ACCESS_TOKEN" \
+            --header "Content-Type: application/json; UTF-8" \
+            --data "$payload" \
+            "https://fcm.googleapis.com/v1/projects/$FIREBASE_PROJECT_ID/messages:send"
